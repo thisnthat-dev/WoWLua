@@ -110,6 +110,7 @@ local function wowpad_print(...)
 
 		out = out .. tostring(select(i, ...))
 	end
+	
 	WowLuaFrameOutput:AddMessage("|cff999999" .. out .. "|r")
 end
 
@@ -189,7 +190,7 @@ function WowLua:ProcessLine(text)
 		-- Make print a global function
 		local old_print = print
 		print = wowpad_print
-
+		
 		-- Call the function
 		local succ,err = pcall(func)
 
@@ -206,26 +207,32 @@ function WowLua:ProcessLine(text)
 end
 
 function WowLua:RunScript(text)
+	for k, v in pairs(WowLuaFrameOutput) do
+		print(k)
+		print(v)
+	end
+
 	-- escape any color codes:
 	local output = text:gsub("\124", "\124\124")
 
 	if text == L.RELOAD_COMMAND then
 		ReloadUI()
 	end
-
+	
 	-- If they're using "= value" syntax, just print it
 	text = text:gsub("^%s*=%s*(.+)", "print(%1)")
-
+	
 	-- Trim the command before we run it
 	text = string.trim(text)
-
+	
 	-- Process the current command
 	local func,err = loadstring(text, "WowLua")
 
-	if not func then
+	if not func then		
 		WowLuaFrameOutput:AddMessage("|cffff0000" .. err .. "|r")
 		return false, err
 	else
+
 		-- Make print a global function
 		local old_print = print
 		print = wowpad_print

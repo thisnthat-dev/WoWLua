@@ -450,7 +450,7 @@
 				</Layers>
 				<!-- Basically copy/pasted from MacroFrame -->
 				<ScrollChild>
-					<EditBox name="WowLuaFrameLineNumEditBox" multiLine="true" maxLines="9999" letters="4096" nonspacewrap="true" spacing="1" autoFocus="false">
+					<EditBox name="WowLuaFrameLineNumEditBox" multiLine="true" letters="4096" nonspacewrap="true" spacing="1" autoFocus="false">
 						<Size>
 							<AbsDimension x="100" y="100"/>
 						</Size>
@@ -505,8 +505,8 @@
 						<Layers>
 							<Layer level="BACKGROUND">
 								<FontString name="$parentLineTest" inherits="WowLuaMonoFont" hidden="true">
-									<Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
-									<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT"/>
+									<!-- <Anchor point="TOPLEFT" relativePoint="TOPLEFT"/>
+									<Anchor point="TOPRIGHT" relativePoint="TOPRIGHT"/> -->
 								</FontString>
 							</Layer>
 						</Layers>
@@ -610,7 +610,7 @@
 					</EditBox>
 				</Frames>
 			</Frame>
-			<ScrollingMessageFrame name="$parentOutput" maxLines="9999" fade="false" enableMouse="true">
+			<ScrollingMessageFrame name="$parentOutput" enableMouse="true">
 				<Anchors>
 					<Anchor point="TOPLEFT" relativeTo="WowLuaFrameResizeBar" relativePoint="BOTTOMLEFT">
 						<Offset x="5" y="2"/>
@@ -629,7 +629,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								WowLua:ScrollingMessageFrameScroll(self:GetParent(), "up", "page");
+								WowLua:ScrollingMessageFrameScroll(self:GetParent(), "up", "page");								
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -639,7 +639,7 @@
 						</Anchors>
 						<Scripts>
 							<OnClick>
-								WowLua:ScrollingMessageFrameScroll(self:GetParent(), "down", "page");
+								WowLua:ScrollingMessageFrameScroll(self:GetParent(), "down", "page");								
 							</OnClick>
 						</Scripts>
 					</Button>
@@ -656,9 +656,9 @@
 						( IsControlKeyDown() and "page" ) or "line";
 						WowLua:ScrollingMessageFrameScroll(self, direction, type);
 					</OnMouseWheel>
-					<OnMessageScrollChanged>
+					<OnUpdate>
 						WowLua:UpdateScrollingMessageFrame(self);
-					</OnMessageScrollChanged>
+					</OnUpdate>
 					<OnShow>
 						WowLua:UpdateScrollingMessageFrame(self);
 					</OnShow>
@@ -666,12 +666,12 @@
                         WowLuaFrameCommandEditBox:SetFocus()
                     </OnMouseDown>
                     <OnLoad>
-                        self:SetFont([[Interface\AddOns\WowLua\fonts\VeraMono.ttf]], 14)
+                        self:SetFont([[Interface\AddOns\WowLua\fonts\VeraMono.ttf]], 14, "")
                         self:SetJustifyH("LEFT")
                         self:SetFading(False)
                     </OnLoad>
 				</Scripts>
-			</ScrollingMessageFrame>
+			</ScrollingMessageFrame>			
 		</Frames>
 		<Scripts>
 			<OnShow>
