@@ -207,11 +207,6 @@ function WowLua:ProcessLine(text)
 end
 
 function WowLua:RunScript(text)
-	for k, v in pairs(WowLuaFrameOutput) do
-		print(k)
-		print(v)
-	end
-
 	-- escape any color codes:
 	local output = text:gsub("\124", "\124\124")
 
